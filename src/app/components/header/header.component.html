@@ -6,10 +6,20 @@
       <a href="#">Articles</a>
       <a href="#">L'École</a>
       <a [routerLink]="['/contact']">Contact</a>
+      <a [routerLink]="['/profil']">Mon profil</a>
+      @if(authService.getUserRole()==='admin'){
+      <a [routerLink]="['/admin']">Admin</a>
+      }
+      @if(!authService.isLoggedIn()){
       <button class="header-button" (click)=(navigateToSignUpPage())>M'inscrire</button>
+      <button class="header-button" (click)=(navigateToLoginPage())>Se connecter</button>
+      }
+      @else{
+      <button class="header-button" (click)=(disconnect())>Se déconnecter</button>
+      }
     </nav>
   </div>
-  <div class="header-title">
+  <div class=" header-title">
     <h1>WILD BLOG</h1>
   </div>
 </header>

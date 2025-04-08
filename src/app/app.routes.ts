@@ -5,12 +5,24 @@ import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.com
 import { ContactPageComponent } from './pages/contact-page/contact-page.component';
 import { SignupPageComponent } from './pages/signup-page/signup-page.component';
 import { CreateArticlePageComponent } from './pages/create-article-page/create-article-page.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { authGuard } from './guards/auth.guard';
+import { AdminPageComponent } from './pages/admin-page/admin-page.component';
+import { roleGuard } from './guards/role.guard';
+import { visitorOnlyGuard } from './guards/visitor.guard';
+import { ProfilePageComponent } from './pages/profile-page/profile-page.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: HomePageComponent,
     pathMatch: 'full',
+  },
+
+  {
+    path: 'admin',
+    component: AdminPageComponent,
+    canActivate: [roleGuard('admin')]
   },
   {
     path: 'article/create',
@@ -29,6 +41,15 @@ export const routes: Routes = [
     component: SignupPageComponent,
   },
   {
+    path: 'login',
+    component: LoginPageComponent,
+    canActivate: [visitorOnlyGuard]
+  },
+  {
+    path: 'profil',
+    component: ProfilePageComponent,
+    canActivate: [authGuard]
+  }, {
     path: '**',
     component: NotFoundPageComponent,
   },

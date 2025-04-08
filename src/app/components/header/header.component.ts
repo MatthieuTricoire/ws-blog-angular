@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -11,8 +12,19 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 export class HeaderComponent {
 
   private route: Router = inject(Router);
+  authService = inject(AuthService)
+
 
   navigateToSignUpPage(): void {
     this.route.navigate(["/signup"]);
+  }
+  navigateToLoginPage(): void {
+    this.route.navigate(["/login"]);
+  }
+
+  disconnect(): void {
+    this.authService.clearToken()
+    this.route.navigate(['/login'])
+
   }
 }
